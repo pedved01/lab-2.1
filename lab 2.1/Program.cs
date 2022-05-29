@@ -7,40 +7,15 @@ namespace CSharp_Net_module1_2_1_lab
     interface ILibraryUser
     {
         // declare methods: 
-        public void AddBook(ref string[] array)
-        {
-            //AddBook() – add new book to array bookList
-            string[] NewArray = new string[array.Length + 1];
-            for (int i = 0; i < array.Length && i < NewArray.Length; i++)
-                NewArray[i] = array[i];
-            NewArray = array;
-        }
-        public void RemoveBook(ref string[] array, int index)
-        {
-            //RemoveBook() – remove book from array bookList
-            string[] NewArray = new string[(int)array.Length - 1];
-            for (int i = 0; i < index; i++)
-                NewArray[i] = array[i];
-            for (int i = index + 1; i < NewArray.Length && i < array.Length; i++)
-                NewArray[i - 1] = array[i];
-            NewArray = array;
-        }
-        public string BookInfo(string[] array, int index)
-        {
-            //BookInfo() – returns book info by index
-           
-            return array[index];
-        }
-        public int BookCount(string[] array)
-        {
-            //BooksCout() – returns current count of books
-            int count = 0;
-            for (int i = 0; i < array.Length; i++)
-            {
-                ++count;
-            }
-            return count;
-        }
+        public void AddBook(ref string[] array);
+
+
+        public void RemoveBook(ref string[] array, int index);
+        public string BookInfo(string[] array, int index);
+
+
+        public int BookCount(string[] array);
+      
     }
     // 2) declare class LibraryUser, it implements ILibraryUser
 
@@ -69,15 +44,48 @@ namespace CSharp_Net_module1_2_1_lab
             this.Phone = Phone;
             this.BookLimit = BookLimit;
         }
+        public void AddBook(ref string[] array)
+        {
+            //AddBook() – add new book to array bookList
+            string[] NewArray = new string[array.Length + 1];
+            for (int i = 0; i < array.Length && i < NewArray.Length; i++)
+                NewArray[i] = array[i];
+            NewArray = array;
+        }
+        public void RemoveBook(string[] array, int index)
+        {
+            //RemoveBook() – remove book from array bookList
+            string[] NewArray = new string[(int)array.Length - 1];
+            for (int i = 0; i < index; i++)
+                NewArray[i] = array[i];
+            for (int i = index + 1; i < NewArray.Length && i < array.Length; i++)
+                NewArray[i - 1] = array[i];
+            NewArray = array;
+        }
+        public string BookInfo(string[] array, int index)
+        {
+            //BookInfo() – returns book info by index
+
+            return array[index];
+        }
+        public int BookCount(string[] array)
+        {
+            //BooksCout() – returns current count of books
+            int count = 0;
+            for (int i = 0; i < array.Length; i++)
+            {
+                ++count;
+            }
+            return count;
+        }
 
     }
-
-    class Program 
+     class Program 
     {
         static void Main(string[] args)
         {
             // 8) declare 2 objects. Use default and paremeter constructors
-            LibraryUser user1 = new LibraryUser(), user2 = new LibraryUser("Maria", "Ivanenko", "+380447777777", 2);
+            ILibraryUser user1 = new LibraryUser(), user2 = new LibraryUser("Maria", "Ivanenko", "+380447777777", 2);
             Console.WriteLine("User1 " + user1.FirstName + " " + user1.LastName);
             Console.WriteLine("User2 " + user2.FirstName + " " + user2.LastName);
 
@@ -99,6 +107,26 @@ namespace CSharp_Net_module1_2_1_lab
             user2.RemoveBook("Sherlock Holmes");
             Console.WriteLine("user2.BooksCount " + user2.BooksCount());
 
+        }
+
+        public void AddBook(ref string[] array)
+        {
+            throw new NotImplementedException();
+        }
+
+        public int BookCount(string[] array)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string BookInfo(string[] array, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveBook(ref string[] array, int index)
+        {
+            throw new NotImplementedException();
         }
     }
 }
