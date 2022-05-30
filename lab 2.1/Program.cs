@@ -1,4 +1,4 @@
-﻿using System;
+﻿global using System;
 
 namespace CSharp_Net_module1_2_1_lab
 {
@@ -6,16 +6,14 @@ namespace CSharp_Net_module1_2_1_lab
     // declare method's signature for methods of class LibraryUser
     interface ILibraryUser
     {
+
+
         // declare methods: 
-        public void AddBook(ref string[] array);
+        public void AddBook(string book);
+        public void RemoveBook(string book);
+        public void BookInfo(int index);
+        public int BookCount();
 
-
-        public void RemoveBook(ref string[] array, int index);
-        public string BookInfo(string[] array, int index);
-
-
-        public int BookCount(string[] array);
-      
     }
     // 2) declare class LibraryUser, it implements ILibraryUser
 
@@ -36,7 +34,7 @@ namespace CSharp_Net_module1_2_1_lab
             get { return booklist[i]; }
         }
         // 6) declare constructors: default and parameter
-        public LibraryUser(string FirstName = "empty", string LastName = "empty", string Phone = "000", int BookLimit = 20, int id = 0)
+        public LibraryUser(string FirstName = "neme - empty", string LastName = "decond name - empty", string Phone = "no phone", int id = -1, int BookLimit = 20)
         {
             this.FirstName = FirstName;
             this.LastName = LastName;
@@ -44,48 +42,74 @@ namespace CSharp_Net_module1_2_1_lab
             this.Phone = Phone;
             this.BookLimit = BookLimit;
         }
-        public void AddBook(ref string[] array)
-        {
-            //AddBook() – add new book to array bookList
-            string[] NewArray = new string[array.Length + 1];
-            for (int i = 0; i < array.Length && i < NewArray.Length; i++)
-                NewArray[i] = array[i];
-            NewArray = array;
-        }
-        public void RemoveBook(string[] array, int index)
-        {
-            //RemoveBook() – remove book from array bookList
-            string[] NewArray = new string[(int)array.Length - 1];
-            for (int i = 0; i < index; i++)
-                NewArray[i] = array[i];
-            for (int i = index + 1; i < NewArray.Length && i < array.Length; i++)
-                NewArray[i - 1] = array[i];
-            NewArray = array;
-        }
-        public string BookInfo(string[] array, int index)
-        {
-            //BookInfo() – returns book info by index
 
-            return array[index];
-        }
-        public int BookCount(string[] array)
+        public void AddBook(string book)
         {
-            //BooksCout() – returns current count of books
-            int count = 0;
-            for (int i = 0; i < array.Length; i++)
+
+            string[] booklist = new string[BookLimit];
+            for (int i = 0; i < booklist.Length; i++)
             {
-                ++count;
+                if (booklist[i] == null)
+                {
+                    booklist[i] = book;
+                    Console.WriteLine(booklist[i]);
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"книга под индексом {i} - {booklist[i]}");
+                }
             }
+        }
+
+        public void RemoveBook(string book)
+        {
+            string[] booklist = new string[BookLimit];
+            for (int i = 0; i < booklist.Length; i++)
+            {
+                if (booklist[i] == book)
+                {
+                    booklist[i] = null;
+                    Console.WriteLine("your book was removed");
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine($"книга под индексом {i} - {booklist[i] ?? "empty"}");
+                }
+            }
+        }
+
+        public void BookInfo(int index)
+        {
+            string[] booklist = new string[BookLimit];
+            for (int i = 0; i < booklist.Length; i++)
+            {
+                Console.WriteLine(booklist[i] ?? "empty place");
+            }
+        }
+
+        public int BookCount()
+        {
+            int count = 0;
+            string[] booklist = new string[BookLimit];
+            for (int i = 0; i < booklist.Length; i++)
+            {
+               if (booklist[i] != null)
+                    count++;
+               
+            }
+            Console.WriteLine($"total numbers of books - {count}");
             return count;
         }
-
     }
-     class Program 
+    class Program
     {
         static void Main(string[] args)
         {
             // 8) declare 2 objects. Use default and paremeter constructors
-            ILibraryUser user1 = new LibraryUser(), user2 = new LibraryUser("Maria", "Ivanenko", "+380447777777", 2);
+            var user1 = new LibraryUser();
+            var user2 = new LibraryUser("Maria", "Ivanenko", "+380447777777", 2);
             Console.WriteLine("User1 " + user1.FirstName + " " + user1.LastName);
             Console.WriteLine("User2 " + user2.FirstName + " " + user2.LastName);
 
@@ -94,39 +118,19 @@ namespace CSharp_Net_module1_2_1_lab
             user1.AddBook("Harry Potter");
             Console.WriteLine("User 2: add Sherlock Holmes");
             user2.AddBook("Sherlock Holmes");
-            Console.WriteLine("user1.BooksCount = " + user1.BooksCount() + "; user2.BooksCount " + user2.BooksCount());
+            Console.WriteLine("user1.BooksCount = " + user1.BookCount() + "; user2.BooksCount " + user2.BookCount());
             Console.WriteLine("user2 :");
             Console.WriteLine("Add Kobzar");
             user2.AddBook("Kobzar");
-            Console.WriteLine("user2.BooksCount " + user2.BooksCount());
+            Console.WriteLine("user2.BooksCount " + user2.BookCount());
             Console.WriteLine("Add Dorian Gray");
             user2.AddBook("Dorian Gray");
-            Console.WriteLine("user2.BooksCount " + user2.BooksCount());
+            Console.WriteLine("user2.BooksCount " + user2.BookCount());
             Console.WriteLine("user2 books " + user2[0] + "\n" + user2[1]);
             Console.WriteLine("Remove Sherlock Holmes");
             user2.RemoveBook("Sherlock Holmes");
-            Console.WriteLine("user2.BooksCount " + user2.BooksCount());
+            Console.WriteLine("user2.BooksCount " + user2.BookCount());
 
-        }
-
-        public void AddBook(ref string[] array)
-        {
-            throw new NotImplementedException();
-        }
-
-        public int BookCount(string[] array)
-        {
-            throw new NotImplementedException();
-        }
-
-        public string BookInfo(string[] array, int index)
-        {
-            throw new NotImplementedException();
-        }
-
-        public void RemoveBook(ref string[] array, int index)
-        {
-            throw new NotImplementedException();
         }
     }
 }
