@@ -34,14 +34,14 @@ namespace CSharp_Net_module1_2_1_lab
             get { return booklist[i]; }
         }
         // 6) declare constructors: default and parameter
-        public LibraryUser(string FirstName = "neme - empty", string LastName = "decond name - empty", string Phone = "no phone", int id = -1, int BookLimit = 20)
+        public LibraryUser(string FirstName = "first neme - empty", string LastName = "second name - empty", string Phone = "no phone", int id = -1, int BookLimit = 20)
         {
             this.FirstName = FirstName;
             this.LastName = LastName;
             this.id = id;
             this.Phone = Phone;
             this.BookLimit = BookLimit;
-            string[] booklist = new string[BookLimit];
+            this.booklist = new string[BookLimit];
         }
 
         public void AddBook(string book)
