@@ -41,65 +41,47 @@ namespace CSharp_Net_module1_2_1_lab
             this.id = id;
             this.Phone = Phone;
             this.BookLimit = BookLimit;
+            string[] booklist = new string[BookLimit];
         }
 
         public void AddBook(string book)
         {
-
-            string[] booklist = new string[BookLimit];
             for (int i = 0; i < booklist.Length; i++)
             {
                 if (booklist[i] == null)
                 {
                     booklist[i] = book;
-                    Console.WriteLine(booklist[i]);
                     break;
                 }
-                else
-                {
-                    Console.WriteLine($"книга под индексом {i} - {booklist[i]}");
-                }
             }
-        }
 
+        }
         public void RemoveBook(string book)
         {
-            string[] booklist = new string[BookLimit];
-            for (int i = 0; i < booklist.Length; i++)
+           for (int i = 0; i < booklist.Length; i++)
             {
                 if (booklist[i] == book)
                 {
                     booklist[i] = null;
-                    Console.WriteLine("your book was removed");
                     break;
-                }
-                else
-                {
-                    Console.WriteLine($"книга под индексом {i} - {booklist[i] ?? "empty"}");
-                }
+                }  
             }
         }
 
         public void BookInfo(int index)
         {
-            string[] booklist = new string[BookLimit];
-            for (int i = 0; i < booklist.Length; i++)
-            {
-                Console.WriteLine(booklist[i] ?? "empty place");
-            }
+            Console.WriteLine($"Book with index{index} - {booklist[index]}");
         }
 
         public int BookCount()
         {
             int count = 0;
-            string[] booklist = new string[BookLimit];
             for (int i = 0; i < booklist.Length; i++)
             {
-               if (booklist[i] != null)
+                if (booklist[i] != null)
                     count++;
-               
+
             }
-            Console.WriteLine($"total numbers of books - {count}");
             return count;
         }
     }
